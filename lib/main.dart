@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/Restaurant.dart';
+import 'detail.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Home(),
+    
+routes: {
+  _HomeState.routeName: (context) => Home(),
+  Detail.routeName: (context) => Detail(
+        restaurant: ModalRoute.of(context)?.settings.arguments as Restaurant,
+      ),
+}
   ));
 }
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
+  
 }
 
 class _HomeState extends State<Home> {
+  
+  static const routeName = '/restaurant_home';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +70,11 @@ class _HomeState extends State<Home> {
         children: [
           Row(
             children: [
+              Text(restaurant.name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            ],
+          ),
+          Row(
+            children: [
               Text(restaurant.city),
             ],
           ),
@@ -68,23 +85,10 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      // onTap: () {
-      //   Navigator.pushNamed(context, RestoDetailPage.routeName,
-      //       arguments: restaurant);
-      // },
+      onTap: () {
+        Navigator.pushNamed(context, Detail.routeName,
+            arguments: restaurant);
+      },
     );
   }
 }
-
-// switch (snapshot.connectionState) {
-//   case ConnectionState.waiting:
-//     return Center(child: CircularProgressIndicator());
-//   default:
-//     if (snapshot.hasError) {
-//       return Center(
-//         child: Text('Error'),
-//       );
-//     } else {
-//       return buildRestaurant(Restaurant);
-//     }
-// }

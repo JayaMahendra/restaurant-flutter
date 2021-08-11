@@ -124,3 +124,4 @@ List<Restaurant> parseRestaurants(String? json) {
       Welcome.fromJson(jsonDecode(json)).restaurants;
   return restaurants;
 }
+
