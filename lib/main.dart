@@ -17,25 +17,30 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight:60,
-            title: Text('Restaurant')),
+        appBar: AppBar(toolbarHeight: 60, title: Text('Restaurant')),
         body: FutureBuilder<String>(
-          future: DefaultAssetBundle.of(context)
-              .loadString('assets/local_restaurant.json'),
-          builder: (context, snapshot) {
-            final List<Restaurant> restaurant = parseRestaurants(snapshot.data);
-            return ListView.builder(
-              itemCount: restaurant.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    child: Column(children: [
-                  _buildRestaurantItem(context, restaurant[index])
-                ]));
-              },
-            );
-          },
-        ));
+            future: DefaultAssetBundle.of(context)
+                .loadString('assets/local_restaurant.json'),
+            builder: (context, snapshot) {
+              final List<Restaurant> restaurant =
+                  parseRestaurants(snapshot.data);
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return ListView.builder(
+                  itemCount: restaurant.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        child: Column(children: [
+                      _buildRestaurantItem(context, restaurant[index])
+                    ]));
+                  },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }));
   }
 
   Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
