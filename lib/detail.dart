@@ -13,7 +13,7 @@ class Detail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Detail'),
+          title: Text('Detail'),backgroundColor: Color(0xFFFF1744)
         ),
         body: SingleChildScrollView(
             child: Container(
